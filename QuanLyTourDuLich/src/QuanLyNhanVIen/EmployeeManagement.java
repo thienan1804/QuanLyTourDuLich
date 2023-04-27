@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class EmployeeManagement {
 
-    public static void main() {
+  public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
         EmployeeList employeeList = new EmployeeList();
         int choice = 0;
@@ -66,21 +66,11 @@ public class EmployeeManagement {
                     } while (roleUpdate != 1 && roleUpdate != 2 && roleUpdate != 3);
                     Employee employeeToUpdate = new Employee(employeeIdToUpdate, nameUpdate, usernameUpdate, passwordUpdate, roleUpdate);
                     employeeList.updateEmployee(employeeIdToUpdate, employeeToUpdate);
-                    if (employeeList.updateEmployee(employeeIdToUpdate, employeeToUpdate)) {
-                        System.out.println("Cap nhat nhan vien " + employeeIdToUpdate + " thanh cong");
-                    } else {
-                        System.out.println("Cap nhat that bai");
-                    }
                     break;
                 case 3:
                     System.out.print("Nhap ma nhan vien: ");
                     String employeeIdDelete = sc.next();
                     employeeList.deleteEmployee(employeeIdDelete);
-                    if (employeeList.deleteEmployee(employeeIdDelete)) {
-                        System.out.println("Da xoa nhan vien " + employeeIdDelete + " thanh cong");
-                    } else {
-                        System.out.println("Xoa that bai");
-                    }
                     break;
                 case 4:
                     employeeList.showEmployeeList();

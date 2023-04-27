@@ -12,37 +12,49 @@ import java.util.ArrayList;
  */
 public class EmployeeList {
 
-    private ArrayList<Employee> employeeList;
+    public ArrayList<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public ArrayList<Employee> employeeList;
 
     public EmployeeList() {
         employeeList = new ArrayList<Employee>();
     }
 
     public void addEmployee(Employee employee) {
+        for (Employee e : employeeList) {
+            if (e.getEmployeeId().equals(employee.getEmployeeId())) {
+                System.out.println("Ma nhan vien da ton tai vui long nhap lai!");
+                return;
+            }
+        }
         employeeList.add(employee);
         System.out.println("Them thanh cong");
     }
 
-    public boolean deleteEmployee(String idEmployee) {
+    public void deleteEmployee(String idEmployee) {
         for (Employee e : employeeList) {
             if (e.getEmployeeId().equals(idEmployee)) {
                 employeeList.remove(e);
-                return true;
+                System.out.println("Xoa nhan vien " + idEmployee + " thanh cong");
+                return;
             }
         }
-        return false;
+        System.out.println("Xoa that bai");
     }
 
-    public boolean updateEmployee(String id, Employee employee) {
+    public void updateEmployee(String id, Employee employee) {
         for (Employee e : employeeList) {
             if (e.getEmployeeId().equals(id)) {
                 e.setUsername(employee.getUsername());
                 e.setPassword(employee.getPassword());
                 e.setRole(employee.getRole());
-                return true;
+                System.out.println("Cap nhat nhan vien " + id + " thanh cong");
+                return;
             }
         }
-        return false;
+        System.out.println("Cap nhat that bai");
     }
 
     public void showEmployeeList() {

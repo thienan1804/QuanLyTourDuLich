@@ -6,6 +6,7 @@
 package GiaoDien;
 
 import QuanLyNhanVIen.EmployeeManagement;
+import QuanLyTour.TourManagement;
 import java.util.Scanner;
 
 /**
@@ -17,24 +18,29 @@ public class QuanLyGiaoDien {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
-        do {
-            System.out.println("\n\nChọn chức năng:");
-            System.out.println("0. Thoát chương trình.");
-            System.out.println("1. Dang nhap vao quan ly nhan vien");
-            System.out.println("Moi nhap lua chon cua ban: ");
+        System.out.println("Ban muon dang nhap duoi quyen(1. Quan tri, 2. Dieu hanh, 3. Ke Toan): ");
+        int login = sc.nextInt();
+        if (login == 1) {
+            do {
+                System.out.println("\n\nChọn chức năng:");
+                System.out.println("0. Thoát chương trình.");
+                System.out.println("1. Dang nhap vao quan ly nhan vien");
+                System.out.println("2. Dang nhap vao quan ly tour");
+                System.out.println("Moi nhap lua chon cua ban: ");
 
-            choice = sc.nextInt();
-            sc.nextLine(); // Đọc bỏ dòng trống sau khi đọc số
-            switch (choice) {
-                case 1:
-                    EmployeeManagement.main();
-                    break;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
-                    break;
-            }
-        } while (choice != 0);
-        EmployeeManagement.main();
-
+                choice = sc.nextInt();
+                sc.nextLine(); // Đọc bỏ dòng trống sau khi đọc số
+                switch (choice) {
+                    case 1:
+                        EmployeeManagement.main(args);
+                        break;
+                    case 2:
+                        TourManagement.main(args);
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
+                        break;
+                }
+            } while (choice != 0);
+        }
     }
 }
