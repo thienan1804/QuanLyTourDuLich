@@ -69,13 +69,15 @@ public class EmployeeList {
     // Phương thức tìm kiếm nhân viên theo tên
     public ArrayList<Employee> searchEmployeeByName(String name) {
         ArrayList<Employee> result = new ArrayList<Employee>();
+        boolean check=true;
         for (Employee emp : employeeList) {
             if (emp.getName().contains(name)) {
                 result.add(emp);
-            } else {
-                System.out.println("Khong co ten " + name + " trong danh sach");
+            }else {
+                check=false;
             }
         }
+        if(check==false)System.out.println("Khong tim thay nhan vien "+name+" trong danh sach");
         return result;
     }
 

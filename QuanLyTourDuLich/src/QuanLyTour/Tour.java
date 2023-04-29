@@ -21,7 +21,7 @@ public class Tour {
     protected double giaTien;
     protected int soLuongKhachToiDa;
     protected Employee nguoiTao;
-    ;
+    
     protected boolean trangThai;
     Scanner sc = new Scanner(System.in);
     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
