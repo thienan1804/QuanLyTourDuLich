@@ -37,25 +37,31 @@ public class TourList {
         if (countTour > MAX_SIZE) {
             System.out.println("Du lieu da day");
         } else {
-
-            String tourCode;
             boolean isExist;
-            do {
-                System.out.print("Mã tour: ");
-                tourCode = sc.nextLine();
-                isExist = isTourCodeExist(tourCode);
-                if (isExist) {
-                    System.out.println("Mã tour đã tồn tại, vui lòng nhập lại!");
-                }
-            } while (isExist);
             if (choice == 1) {
                 tour[countTour] = new BeachTour();
                 BeachTour beach = new BeachTour();
+                do {
+                    System.out.println("Nhap ma tour: ");
+                    beach.maTour = sc.nextLine();
+                    isExist = isTourCodeExist(beach.maTour);
+                    if (isExist) {
+                        System.out.println("Mã tour đã tồn tại, vui lòng nhập lại!");
+                    }
+                } while (isExist);
                 beach.nhap();
                 tour[countTour] = beach;
             } else {
                 tour[countTour] = new CityTour();
                 CityTour city = new CityTour();
+                do {
+                    System.out.println("Nhap ma tour: ");
+                    city.maTour = sc.nextLine();
+                    isExist = isTourCodeExist(city.maTour);
+                    if (isExist) {
+                        System.out.println("Mã tour đã tồn tại, vui lòng nhập lại!");
+                    }
+                } while (isExist);
                 city.nhap();
                 tour[countTour] = city;
             }
@@ -86,13 +92,13 @@ public class TourList {
         if (found) {
             countTour--;
             System.out.println("Xoa thanh cong!");
-        }else {
+        } else {
             System.out.println("Xoa that bai!");
         }
     }
-    
-    public void xuat(){
-        for(int i=0 ; i<countTour; i++){
+
+    public void xuat() {
+        for (int i = 0; i < countTour; i++) {
             System.out.println("STT: " + i);
             System.out.println(tour[i].toString());
         }

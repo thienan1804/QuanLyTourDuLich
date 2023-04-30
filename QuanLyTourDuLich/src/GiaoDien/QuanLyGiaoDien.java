@@ -7,6 +7,7 @@ package GiaoDien;
 
 import QuanLyNhanVIen.EmployeeManagement;
 import QuanLyTour.TourManagement;
+import QuanLyKhachHang.CustomerManagement;
 import java.util.Scanner;
 
 /**
@@ -26,6 +27,7 @@ public class QuanLyGiaoDien {
                 System.out.println("0. Thoát chương trình.");
                 System.out.println("1. Dang nhap vao quan ly nhan vien");
                 System.out.println("2. Dang nhap vao quan ly tour");
+                System.out.println("3. Dang nhap vao quan ly khach hang");
                 System.out.println("Moi nhap lua chon cua ban: ");
 
                 choice = sc.nextInt();
@@ -36,6 +38,8 @@ public class QuanLyGiaoDien {
                         break;
                     case 2:
                         TourManagement.main(args);
+                    case 3:
+                        CustomerManagement.main(args);
                     default:
                         System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                         break;

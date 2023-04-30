@@ -12,11 +12,11 @@ import java.util.ArrayList;
  */
 public class EmployeeList {
 
+    public static ArrayList<Employee> employeeList;
+
     public ArrayList<Employee> getEmployeeList() {
         return employeeList;
     }
-
-    public ArrayList<Employee> employeeList;
 
     public EmployeeList() {
         employeeList = new ArrayList<Employee>();
@@ -69,15 +69,17 @@ public class EmployeeList {
     // Phương thức tìm kiếm nhân viên theo tên
     public ArrayList<Employee> searchEmployeeByName(String name) {
         ArrayList<Employee> result = new ArrayList<Employee>();
-        boolean check=true;
+        boolean check = true;
         for (Employee emp : employeeList) {
             if (emp.getName().contains(name)) {
                 result.add(emp);
-            }else {
-                check=false;
+            } else {
+                check = false;
             }
         }
-        if(check==false)System.out.println("Khong tim thay nhan vien "+name+" trong danh sach");
+        if (check == false) {
+            System.out.println("Khong tim thay nhan vien " + name + " trong danh sach");
+        }
         return result;
     }
 

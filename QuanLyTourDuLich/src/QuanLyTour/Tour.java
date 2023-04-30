@@ -8,6 +8,7 @@ import QuanLyNhanVIen.Employee;
 import QuanLyNhanVIen.EmployeeList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -21,7 +22,10 @@ public class Tour {
     protected double giaTien;
     protected int soLuongKhachToiDa;
     protected Employee nguoiTao;
-    
+    protected ArrayList<String> dsKhachHang;
+    String ma;
+    boolean check=false;
+
     protected boolean trangThai;
     Scanner sc = new Scanner(System.in);
     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -36,6 +40,7 @@ public class Tour {
         this.soLuongKhachToiDa = soLuongKhachToiDa;
         this.nguoiTao = nguoiTao;
         this.trangThai = trangThai;
+        this.dsKhachHang = new ArrayList<>();
     }
 
     public Tour() {
@@ -48,6 +53,7 @@ public class Tour {
         soLuongKhachToiDa = 0;
         nguoiTao = new Employee();
         trangThai = false;
+        this.dsKhachHang = new ArrayList<>();
     }
 
     protected void nhap() {
@@ -60,18 +66,49 @@ public class Tour {
             System.out.println("Nhap ngay ve: ");
             String inputNgayVe = sc.next();
             this.ngayVe = LocalDate.parse(inputNgayVe, format);
-            if(this.ngayDi.isAfter(ngayVe))System.out.println("Ngay di phai truoc ngay ve");
-        }while(this.ngayDi.isAfter(ngayVe));  
-        System.out.println("Nhap gia tien: ");
+            if (this.ngayDi.isAfter(ngayVe)) {
+                System.out.println("Ngay di phai truoc ngay ve");
+            }
+        } while (this.ngayDi.isAfter(ngayVe));
+        System.out.println("Nhap gia tien(trieu): ");
         this.giaTien = sc.nextDouble();
         System.out.println("Nhap so luong khach toi da: ");
-        this.soLuongKhachToiDa = sc.nextInt();
-        String ma;
+        this.soLuongKhachToiDa = sc.nextInt();        
         do {
             System.out.println("Nhap ma nguoi tao: ");
             ma = sc.next();
-        } while (this.nguoiTao.getEmployeeId().equals(ma));
+            for(Employee e : EmployeeList.employeeList){
+                if(!e.getEmployeeId().equals(ma))check=true;
+            }
+            if (!check) {
+                System.out.println("Khong co nhan vien trong danh sach!");
+            } else {
+                nguoiTao.setEmployeeId(ma);
+            }
+        } while (!check);
+        int soLuongKhachHangThamGia;
+        do {
+            System.out.println("Nhap so luong khach hang tham gia: ");
+            soLuongKhachHangThamGia = sc.nextInt();
+            if (soLuongKhachHangThamGia > this.soLuongKhachToiDa) {
+                System.out.println("So luong khach hang tham gia khong duoc vuot qua so luong khach hang toi da!");
+            }
+        } while (soLuongKhachHangThamGia > this.soLuongKhachToiDa);
+        for (int i = 0; i < soLuongKhachHangThamGia; i++) {
+            String maKhachHang;
+            do {
+                System.out.println("Nhap ma khach hang thu " + (i + 1) + ": ");
+                maKhachHang = sc.next();
+                if (!dsKhachHang.get(i).equals(maKhachHang)) {
+                    System.out.println("Ma khach hang da ton tai!");
+                } else {
+                    this.dsKhachHang.add(maKhachHang);
+                }
+            } while (!dsKhachHang.get(i).equals(maKhachHang));
 
+        }
+        System.out.println("Nhap ghi chu: ");
+        this.ghiChu = sc.next();
     }
 
     public String getMaTour() {
@@ -88,6 +125,10 @@ public class Tour {
 
     public void setTenTour(String tenTour) {
         this.tenTour = tenTour;
+    }
+
+    public void setDsKhachHang(ArrayList<String> dsKhachHang) {
+        this.dsKhachHang = dsKhachHang;
     }
 
     public String getGhiChu() {
@@ -115,6 +156,9 @@ public class Tour {
     }
 
     public double getGiaTien() {
+        if (this.soLuongKhachToiDa >= 3 && this.giaTien > 30) {
+            return giaTien * 0.1;
+        }
         return giaTien;
     }
 
@@ -142,15 +186,25 @@ public class Tour {
         return trangThai;
     }
 
+    public ArrayList<String> getDsKhachHang() {
+        return dsKhachHang;
+    }
+
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
 
     @Override
     public String toString() {
-        return "Tour: {" + "maTour=" + maTour + ", tenTour=" + tenTour + ", ghiChu=" + ghiChu
-                + ", ngayDi=" + ngayDi + ", ngayVe=" + ngayVe + ", giaTien=" + giaTien
-                + ", soLuongKhachToiDa=" + soLuongKhachToiDa + ", nguoiTao=" + nguoiTao + ", trangThai=" + trangThai;
+        String result = "";
+        for (String cus : dsKhachHang) {
+            result += cus + ", ";
+        }
+        String trangThaiString = !this.trangThai ? "Dang mo ban" : "Da dong";
+        return "{maTour=" + maTour + ", tenTour=" + tenTour + ", ngayDi="
+                + ngayDi.format(format) + ", ngayVe=" + ngayVe.format(format) + ", giaTien=" + getGiaTien() + "tr"
+                + ", soLuongKhachToiDa=" + soLuongKhachToiDa + ", nguoiTao=" + nguoiTao.getEmployeeId()
+                + ", trangThai=" + trangThaiString + ", dsKhachHang=[" + result + "]" + ", ghiChu=" + ghiChu;
     }
 
     public static void main(String[] args) {
