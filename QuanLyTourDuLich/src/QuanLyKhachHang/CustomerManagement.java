@@ -53,7 +53,7 @@ public class CustomerManagement {
                     System.out.println("Nhap ma khach hang can xoa: ");
                     String maDeleteKH = sc.next();
                     customerList.deleteCustomer(maDeleteKH);
-                    customerList.deleteFromFile(maDeleteKH, linkFile);
+                    customerList.saveToFile(linkFile);
                     break;
                 case 4:
                     customerList.printCustomer();
