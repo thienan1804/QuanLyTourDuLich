@@ -33,13 +33,18 @@ public class QuanLyGiaoDien {
                 choice = sc.nextInt();
                 sc.nextLine(); // Đọc bỏ dòng trống sau khi đọc số
                 switch (choice) {
+                    case 0:
+                        System.out.println("Cam on ban da su dung chuong trinh!");
+                        break;
                     case 1:
                         EmployeeManagement.main(args);
                         break;
                     case 2:
                         TourManagement.main(args);
+                        break;
                     case 3:
                         CustomerManagement.main(args);
+                        break;
                     default:
                         System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                         break;

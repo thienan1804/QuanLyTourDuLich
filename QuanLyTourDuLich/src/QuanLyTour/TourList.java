@@ -12,8 +12,7 @@ import java.util.Scanner;
  */
 public class TourList {
 
-    protected int MAX_SIZE = 100;
-    protected Tour[] tour = new Tour[MAX_SIZE];
+    public static Tour[] tour = new Tour[100];
     private int countTour;
     Scanner sc = new Scanner(System.in);
 
@@ -34,7 +33,7 @@ public class TourList {
     }
 
     public void addTourList(int choice) {
-        if (countTour > MAX_SIZE) {
+        if (countTour > 100) {
             System.out.println("Du lieu da day");
         } else {
             boolean isExist;

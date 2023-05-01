@@ -5,6 +5,7 @@
 package QuanLyKhachHang;
 
 import QuanLyTour.Tour;
+import QuanLyTour.TourList;
 import java.util.ArrayList;
 
 /**
@@ -16,14 +17,14 @@ public class Customer {
     String maKH, tenKH, sdt, diaChi;
     int loaiKhachHang;
     Tour maTour;
-    ArrayList<Tour> tourList;
 
     public Customer(String maKH, String tenKH, String sdt, String diaChi) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.sdt = sdt;
         this.diaChi = diaChi;
-        this.maTour=getMaTour();
+        this.loaiKhachHang = 2;
+        this.maTour = new Tour();
     }
 
     public Customer() {
@@ -68,14 +69,14 @@ public class Customer {
     }
 
     public Tour getMaTour() {
-        if(tourList!=null){
-             for (Tour tour : tourList) {
-             for (String maKh : tour.getDsKhachHang()) {
-                    if (maKh.equals(this.maKH)) {
-                            return maTour = tour;
-                    }
+        boolean checkMaKHTour;
+        for (Tour tour : TourList.tour) {
+            for (String maKHTour : tour.getDsKhachHang()) {
+                if (maKHTour.equals(maKH)) {
+                    checkMaKHTour = true;
+                    return maTour = tour;
                 }
-             }
+            }
         }
         return maTour;
     }
@@ -85,8 +86,8 @@ public class Customer {
     }
 
     public int getLoaiKhachHang() {
-        if (tourList != null) {
-            for (Tour tour : tourList) {
+        for (Tour tour : TourList.tour) {
+            if (!tour.getDsKhachHang().isEmpty()) {
                 for (String maKh : tour.getDsKhachHang()) {
                     if (maKh.equals(this.maKH)) {
                         if (tour.getGiaTien() > 30) {
@@ -95,8 +96,7 @@ public class Customer {
                         }
                     }
                 }
-            }
-
+            } 
         }
         return loaiKhachHang = 2;
     }
@@ -107,8 +107,9 @@ public class Customer {
 
     @Override
     public String toString() {
+        String loaiKHString = loaiKhachHang == 1 ? "Vip" : "Thuong";
         return "Customer{" + "maKH=" + maKH + ", tenKH=" + tenKH + ", sdt=" + sdt
-                + ", diaChi=" + diaChi + ", maTour=" + maTour.getMaTour() + ", loaiKhachHang=" + getLoaiKhachHang() + '}';
+                + ", diaChi=" + diaChi + ", maTour=" + maTour.getMaTour() + ", loaiKhachHang=" + loaiKHString + '}';
     }
 
     public static void main(String[] args) {

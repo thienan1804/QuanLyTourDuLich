@@ -27,6 +27,8 @@ public class EmployeeManagement {
             sc.nextLine(); // Đọc bỏ dòng trống sau khi đọc số
 
             switch (choice) {
+                case 0:
+                    break;
                 case 1:
                     System.out.print("Nhap ma nhan vien: ");
                     String employeeId = sc.next();

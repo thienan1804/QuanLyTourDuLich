@@ -29,16 +29,26 @@ public class TourManagement {
             choice = sc.nextInt();
 
             switch (choice) {
+                case 0:
+                    break;
                 case 1:
                     tourlist.addTourList(1);
                     break;
                 case 2:
                     tourlist.addTourList(2);
                     break;
+                case 3:
+                    System.out.println("Nhap ma tour muon sua:" );
+                    String maTourUpdate = sc.next();
+                    Tour tourUpdate = new Tour();
+                    tourUpdate.nhap();
+                    tourlist.updateTour(maTourUpdate, tourUpdate);
+                    break;
                 case 4:
                     System.out.println("Nhap ma tour can xoa: ");
                     String maTourCanXoa = sc.next();
                     tourlist.deleteTour(maTourCanXoa);
+                    break;
                 case 5:
                     tourlist.xuat();
                     break;
