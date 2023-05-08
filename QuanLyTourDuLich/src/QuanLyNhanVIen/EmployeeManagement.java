@@ -4,14 +4,18 @@
  * and open the template in the editor.
  */
 package QuanLyNhanVIen;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EmployeeManagement {
 
-  public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
+    protected static String linkFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyNhanVIen\\DanhSachNhanVien.txt";
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         EmployeeList employeeList = new EmployeeList();
+        employeeList.loadFromFile(linkFile);
         int choice = 0;
         do {
             System.out.println("\n\nChọn chức năng:");
@@ -38,14 +42,14 @@ public class EmployeeManagement {
                     String username = sc.next();
                     System.out.print("Nhap mat khau: ");
                     String password = sc.next();
-                    int role;
+                    String role;
                     do {
-                        System.out.print("Nhap vai tro (1:Quan tri, 2:Dieu hanh, 3: Ke Toan): ");
-                        role = sc.nextInt();
-                        if (role != 1 && role != 2 && role != 3) {
-                            System.out.println("Loi! Vui long nhap lai");
+                        System.out.print("Nhap vai tro (Quantri, Dieuhanh, Ketoan): ");
+                        role = sc.next();
+                        if (!"Quantri".equals(role) && !"Dieuhanh".equals(role) && !"Ketoan".equals(role)) {
+                            System.out.println("Loi! Vui long nhap lai \n");
                         }
-                    } while (role != 1 && role != 2 && role != 3);
+                    } while (!"Quantri".equals(role) && !"Dieuhanh".equals(role) && !"Ketoan".equals(role));
                     Employee employeeToAdd = new Employee(employeeId, name, username, password, role);
                     employeeList.addEmployee(employeeToAdd);
                     break;
@@ -58,14 +62,14 @@ public class EmployeeManagement {
                     String usernameUpdate = sc.next();
                     System.out.print("Nhap mat khau: ");
                     String passwordUpdate = sc.next();
-                    int roleUpdate;
+                    String roleUpdate;
                     do {
-                        System.out.print("Nhap vai tro (1:Quan tri, 2:Dieu hanh, 3: Ke Toan): ");
-                        roleUpdate = sc.nextInt();
-                        if (roleUpdate != 1 && roleUpdate != 2 && roleUpdate != 3) {
+                        System.out.print("Nhap vai tro (Quantri, Dieuhanh, Ketoan): ");
+                        roleUpdate = sc.next();
+                        if (!"Quantri".equals(roleUpdate) && !"Dieuhanh".equals(roleUpdate) && !"Ketoan".equals(roleUpdate)) {
                             System.out.println("Loi! Vui long nhap lai");
                         }
-                    } while (roleUpdate != 1 && roleUpdate != 2 && roleUpdate != 3);
+                    } while (!"Quantri".equals(roleUpdate) && !"Dieuhanh".equals(roleUpdate) && !"Ketoan".equals(roleUpdate));
                     Employee employeeToUpdate = new Employee(employeeIdToUpdate, nameUpdate, usernameUpdate, passwordUpdate, roleUpdate);
                     employeeList.updateEmployee(employeeIdToUpdate, employeeToUpdate);
                     break;
@@ -93,6 +97,6 @@ public class EmployeeManagement {
                     break;
             }
         } while (choice != 0);
-    
+
     }
 }

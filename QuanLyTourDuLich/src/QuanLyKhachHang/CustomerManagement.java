@@ -12,10 +12,11 @@ import java.util.Scanner;
  */
 public class CustomerManagement {
 
+    protected static String linkFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyKhachHang\\DanhSachKhachHang.txt";
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
-        String linkFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyKhachHang\\DanhSachKhachHang.txt";
         CustomerList customerList = new CustomerList();
         customerList.loadFromFile(linkFile);
 
@@ -27,7 +28,6 @@ public class CustomerManagement {
             System.out.println("3. Xóa khách hàng");
             System.out.println("4. Xuất danh sách khách hàng");
             System.out.println("5. Tìm kiếm khách hàng theo tên");
-            System.out.println("6. Luu danh sach khach hang");
             System.out.println("Moi nhap lua chon cua ban: ");
 
             choice = sc.nextInt();
@@ -47,13 +47,11 @@ public class CustomerManagement {
                     String diaChiAddKH = sc.next();
                     Customer cusAdd = new Customer(maAddKH, tenAddKH, sdtAddKH, diaChiAddKH);
                     customerList.addCustomer(cusAdd);
-                    customerList.saveToFile(linkFile);
                     break;
                 case 3:
                     System.out.println("Nhap ma khach hang can xoa: ");
                     String maDeleteKH = sc.next();
                     customerList.deleteCustomer(maDeleteKH);
-                    customerList.saveToFile(linkFile);
                     break;
                 case 4:
                     customerList.printCustomer();

@@ -4,6 +4,7 @@
  */
 package QuanLyTour;
 
+import QuanLyKhachHang.Customer;
 import QuanLyNhanVIen.Employee;
 import java.time.LocalDate;
 
@@ -15,11 +16,11 @@ public class CityTour extends Tour {
 
     @Override
     public String toString() {
-        return "CityTour: " + super.toString() + ", tenThanhPho=" + tenThanhPho + '}';
+        return "CityTour: " + super.toString() + ", tenThanhPho=" + tenThanhPho;
     }
 
-    public CityTour(String maTour, String tenTour, String ghiChu, LocalDate ngayDi, LocalDate ngayVe, double giaTien, int soLuongKhachToiDa, Employee nguoiTao, boolean trangThai, String tenThanhPho) {
-        super(maTour, tenTour, ghiChu, ngayDi, ngayVe, giaTien, soLuongKhachToiDa, nguoiTao, trangThai);
+    public CityTour(String maTour, String tenTour, String ghiChu, LocalDate ngayDi, LocalDate ngayVe, double giaTien, int soLuongKhachToiDa, Employee nguoiTao, Customer khachHang, boolean trangThai, String tenThanhPho) {
+        super(maTour, tenTour, ngayDi, ngayVe, giaTien, soLuongKhachToiDa, nguoiTao, khachHang, trangThai, ghiChu);
         this.tenThanhPho = tenThanhPho;
     }
 
@@ -27,12 +28,12 @@ public class CityTour extends Tour {
         super();
         tenThanhPho = "";
     }
-    
+
     @Override
-    public void nhap(){
+    public void nhap() {
         super.nhap();
         System.out.println("Nhap ten thanh pho: ");
-        this.tenThanhPho=sc.next();
+        this.tenThanhPho = sc.next();
     }
 
     public String getTenThanhPho() {

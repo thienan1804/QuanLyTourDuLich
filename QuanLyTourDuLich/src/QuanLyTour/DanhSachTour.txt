@@ -1,0 +1,1 @@
+BeachTour: maTour=t1, tenTour=, ngayDi=02/05/2023, ngayVe=02/05/2023, giaTien=10.0tr, soLuongKhachToiDa=100, nguoiTao=nv1, trangThai=Dang mo ban, khachHang=kh1, ghiChu=, tenBien=nhatrang, tenKhachSan=thienan

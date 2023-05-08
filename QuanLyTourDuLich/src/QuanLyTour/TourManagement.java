@@ -12,8 +12,11 @@ import java.util.Scanner;
  */
 public class TourManagement {
 
+    protected static String linkFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyTour\\DanhSachTour.txt";
+
     public static void main(String[] args) {
         TourList tourlist = new TourList();
+        tourlist.loadFromFile(linkFile);
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
@@ -38,7 +41,7 @@ public class TourManagement {
                     tourlist.addTourList(2);
                     break;
                 case 3:
-                    System.out.println("Nhap ma tour muon sua:" );
+                    System.out.println("Nhap ma tour muon sua:");
                     String maTourUpdate = sc.next();
                     Tour tourUpdate = new Tour();
                     tourUpdate.nhap();

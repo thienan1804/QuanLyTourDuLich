@@ -4,6 +4,7 @@
  */
 package QuanLyTour;
 
+import QuanLyKhachHang.Customer;
 import QuanLyNhanVIen.Employee;
 import java.time.LocalDate;
 
@@ -15,8 +16,8 @@ public class BeachTour extends Tour {
 
     protected String tenBien, tenKhachSan;
 
-    public BeachTour(String maTour, String tenTour, String ghiChu, LocalDate ngayDi, LocalDate ngayVe, double giaTien, int soLuongKhachToiDa, Employee nguoiTao, boolean trangThai, String tenBien, String tenKhachSan) {
-        super(maTour, tenTour, ghiChu, ngayDi, ngayVe, giaTien, soLuongKhachToiDa, nguoiTao, trangThai);
+    public BeachTour(String maTour, String tenTour, String ghiChu, LocalDate ngayDi, LocalDate ngayVe, double giaTien, int soLuongKhachToiDa, Employee nguoiTao, boolean trangThai, Customer khachHang,String tenBien, String tenKhachSan) {
+        super(maTour, tenTour, ngayDi, ngayVe, giaTien, soLuongKhachToiDa, nguoiTao,khachHang, trangThai,ghiChu);
         this.tenBien = tenBien;
         this.tenKhachSan = tenKhachSan;
     }
@@ -55,7 +56,7 @@ public class BeachTour extends Tour {
 
     @Override
     public String toString() {
-        return "BeachTour: " + super.toString() + ", tenBien=" + tenBien + ", tenKhachSan=" + tenKhachSan + '}';
+        return "BeachTour: " + super.toString() + ", tenBien=" + tenBien + ", tenKhachSan=" + tenKhachSan ;
     }
 
 }

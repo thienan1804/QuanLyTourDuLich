@@ -16,7 +16,7 @@ public class Customer {
 
     String maKH, tenKH, sdt, diaChi;
     int loaiKhachHang;
-    Tour maTour;
+    String maTour;
 
     public Customer(String maKH, String tenKH, String sdt, String diaChi) {
         this.maKH = maKH;
@@ -24,7 +24,7 @@ public class Customer {
         this.sdt = sdt;
         this.diaChi = diaChi;
         this.loaiKhachHang = 2;
-        this.maTour = new Tour();
+        this.maTour = "";
     }
 
     public Customer() {
@@ -33,7 +33,7 @@ public class Customer {
         this.sdt = "";
         this.diaChi = "";
         this.loaiKhachHang = 2;
-        this.maTour = new Tour();
+        this.maTour = "";
     }
 
     public String getMaKH() {
@@ -68,35 +68,30 @@ public class Customer {
         this.diaChi = diaChi;
     }
 
-    public Tour getMaTour() {
-        boolean checkMaKHTour;
+    public String getMaTour() {
         for (Tour tour : TourList.tour) {
-            for (String maKHTour : tour.getDsKhachHang()) {
-                if (maKHTour.equals(maKH)) {
-                    checkMaKHTour = true;
-                    return maTour = tour;
+            if (tour != null) {
+                if (tour.getKhachHang().equals(maKH)) {
+                    return maTour = tour.getMaTour();
                 }
             }
         }
         return maTour;
     }
 
-    public void setMaTour(Tour maTour) {
+    public void setMaTour(String maTour) {
         this.maTour = maTour;
     }
 
     public int getLoaiKhachHang() {
         for (Tour tour : TourList.tour) {
-            if (!tour.getDsKhachHang().isEmpty()) {
-                for (String maKh : tour.getDsKhachHang()) {
-                    if (maKh.equals(this.maKH)) {
-                        if (tour.getGiaTien() > 30) {
-                            return loaiKhachHang = 1;
-
-                        }
+            if (tour != null) {
+                if (tour.getKhachHang().equals(maKH)) {
+                    if (tour.getGiaTien() > 30) {
+                        return loaiKhachHang = 1;
                     }
                 }
-            } 
+            }
         }
         return loaiKhachHang = 2;
     }
@@ -108,8 +103,8 @@ public class Customer {
     @Override
     public String toString() {
         String loaiKHString = loaiKhachHang == 1 ? "Vip" : "Thuong";
-        return "Customer{" + "maKH=" + maKH + ", tenKH=" + tenKH + ", sdt=" + sdt
-                + ", diaChi=" + diaChi + ", maTour=" + maTour.getMaTour() + ", loaiKhachHang=" + loaiKHString + '}';
+        return "maKH=" + maKH + ", tenKH=" + tenKH + ", sdt=" + sdt
+                + ", diaChi=" + diaChi + ", maTour=" + maTour + ", loaiKhachHang=" + loaiKHString;
     }
 
     public static void main(String[] args) {

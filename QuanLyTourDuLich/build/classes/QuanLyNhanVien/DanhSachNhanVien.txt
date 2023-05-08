@@ -1,0 +1,2 @@
+employeeId=nv1, name=an, username=an, password=123, role=Quantri
+employeeId=nv2, name=be, username=be123, password=312, role=Dieuhanh

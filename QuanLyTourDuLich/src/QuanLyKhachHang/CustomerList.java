@@ -4,15 +4,18 @@
  */
 package QuanLyKhachHang;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import static QuanLyKhachHang.CustomerManagement.linkFile;
+import QuanLyTour.Tour;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
@@ -28,12 +31,19 @@ public class CustomerList {
 
     public void addCustomer(Customer customer) {
         for (Customer cus : customerList) {
-            if (cus.getMaKH().equals(customer.getMaKH())) {
-                System.out.println("Ma khach hang da ton tai vui long nhap lai!");
-                return;
+            if (cus.getMaKH() != null) {
+                if (cus.getMaKH().equals(customer.getMaKH())) {
+                    System.out.println("Ma khach hang da ton tai vui long nhap lai!");
+                    return;
+                }
+            } else {
+                break;
             }
+
         }
         customerList.add(customer);
+        saveToFile(linkFile);
+
         System.out.println("Them thanh cong");
     }
 
@@ -42,6 +52,7 @@ public class CustomerList {
             if (cus.getMaKH().equals(idCustomer)) {
                 customerList.remove(cus);
                 System.out.println("Xoa khach hang " + idCustomer + " thanh cong");
+                saveToFile(linkFile);
                 return;
             }
         }
@@ -55,6 +66,7 @@ public class CustomerList {
                 cus.setDiaChi(customer.getDiaChi());
                 cus.setSdt(cus.getSdt());
                 System.out.println("Cap nhat khach hang " + idCustomer + " thanh cong");
+                saveToFile(linkFile);
                 return;
             }
         }
@@ -94,8 +106,7 @@ public class CustomerList {
 
             // Duyệt qua danh sách khách hàng và ghi thông tin của từng khách hàng vào file
             for (Customer kh : customerList) {
-                String line = kh.getMaKH() + "," + kh.getTenKH() + ","
-                        + kh.getSdt() + "," + kh.getDiaChi() + kh.maTour.getMaTour() + "," + kh.loaiKhachHang + "\n";
+                String line = kh.toString() + "\n";
                 writer.write(line);
             }
 
@@ -110,51 +121,56 @@ public class CustomerList {
     // Ham lay du lieu tu file
     public void loadFromFile(String tenFile) {
         try {
-            FileReader fr = new FileReader(tenFile);
-            BufferedReader br = new BufferedReader(fr);
+            File file = new File(tenFile);
+            Scanner scanner = new Scanner(file);
 
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                String MaKH = parts[0];
-                String tenKH = parts[1];
-                String sdt = parts[2];
-                String diaChi = parts[3];
-                Customer kh = new Customer(MaKH, tenKH, sdt, diaChi);
-                customerList.add(kh);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+
+                // Tách thông tin từng thuộc tính của khách hàng từ dòng đọc được
+                String[] arr = line.split(",");
+
+                // Lấy giá trị bên trái dấu bằng làm key, giá trị bên phải làm value
+                Map<String, String> customerInfo = new HashMap<>();
+                for (String s : arr) {
+                    String[] temp = s.split("=");
+
+                    if (temp.length >= 2) {
+                        customerInfo.put(temp[0].trim(), temp[1].trim());
+                    }
+                }
+
+                // Tạo đối tượng khách hàng mới từ thông tin đã đọc được
+                String maKH = customerInfo.get("maKH");
+                String tenKH = customerInfo.get("tenKH");
+                String sdt = customerInfo.get("sdt");
+                String diaChi = customerInfo.get("diaChi");
+                Tour maTour = null;
+
+                Customer customer = new Customer(maKH, tenKH, sdt, diaChi);
+
+                // Thêm khách hàng mới vào danh sách nếu chưa tồn tại trong danh sách
+                boolean isExisted = false;
+                for (Customer kh : customerList) {
+                    if (kh.getMaKH().equals(maKH)) {
+                        isExisted = true;
+                        break;
+                    }
+                }
+                if (!isExisted) {
+                    customerList.add(customer);
+                }
             }
 
-            br.close();
-            fr.close();
-        } catch (IOException e) {
-            System.out.println("Lỗi: " + e.getMessage());
+            scanner.close();
+            System.out.println("Load danh sách khách hàng từ file thành công.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Load danh sách khách hàng từ file thất bại: File không tồn tại.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Load danh sách khách hàng từ file thất bại: Lỗi định dạng dữ liệu.");
+            e.printStackTrace();
         }
-    }
-
-    // Ham xoa khach hang khoi file 
-    public void deleteFromFile(String customerId, String filePath) {
-        // Đọc toàn bộ danh sách khách hàng từ file vào một ArrayList
-        loadFromFile(filePath);
-
-        // Tìm kiếm khách hàng cần xóa
-        Customer customerToDelete = null;
-        for (Customer customer : customerList) {
-            if (customer.getMaKH().equals(customerId)) {
-                customerToDelete = customer;
-                break;
-            }
-        }
-
-        // Nếu tìm thấy khách hàng cần xóa, xóa khỏi danh sách
-        if (customerToDelete != null) {
-            customerList.remove(customerToDelete);
-            System.out.println("Đã xóa thông tin khách hàng với mã " + customerId);
-            // Lưu lại danh sách khách hàng mới vào file
-            saveToFile(filePath);
-        } else {
-            System.out.println("Không tìm thấy thông tin khách hàng với mã " + customerId);
-        }
-
     }
 
     public static void main(String[] args) {

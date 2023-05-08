@@ -24,15 +24,15 @@ public class Tour {
     protected double giaTien;
     protected int soLuongKhachToiDa;
     protected Employee nguoiTao;
-    protected ArrayList<String> dsKhachHang;
-    String ma;
-    boolean check, checkMaKhachHang, maKhachHangDuplicated;
+    protected Customer khachHang;
+    String ma, maKhachDaiDien;
+    boolean check, checkMaKhachHang;
 
     protected boolean trangThai;
     Scanner sc = new Scanner(System.in);
     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Tour(String maTour, String tenTour, String ghiChu, LocalDate ngayDi, LocalDate ngayVe, double giaTien, int soLuongKhachToiDa, Employee nguoiTao, boolean trangThai) {
+    public Tour(String maTour, String tenTour, LocalDate ngayDi, LocalDate ngayVe, double giaTien, int soLuongKhachToiDa, Employee nguoiTao, Customer khachHang, boolean trangThai, String ghiChu) {
         this.maTour = maTour;
         this.tenTour = tenTour;
         this.ghiChu = ghiChu;
@@ -42,7 +42,7 @@ public class Tour {
         this.soLuongKhachToiDa = soLuongKhachToiDa;
         this.nguoiTao = nguoiTao;
         this.trangThai = trangThai;
-        this.dsKhachHang = new ArrayList<>();
+        this.khachHang = khachHang;
     }
 
     public Tour() {
@@ -55,13 +55,13 @@ public class Tour {
         soLuongKhachToiDa = 0;
         nguoiTao = new Employee();
         trangThai = false;
-        this.dsKhachHang = new ArrayList<>();
+        this.khachHang = new Customer();
     }
 
     protected void nhap() {
 //        System.out.println("Nhap ten Tour: ");
 //        this.tenTour = sc.next();
-        
+
         // Ngay di phai truoc ngay ve
 //        do {
 //            System.out.println("Nhap ngay di: ");
@@ -74,79 +74,68 @@ public class Tour {
 //                System.out.println("Ngay di phai truoc ngay ve");
 //            }
 //        } while (this.ngayDi.isAfter(ngayVe));
-        
-        
         System.out.println("Nhap gia tien(trieu): ");
         this.giaTien = sc.nextDouble();
         System.out.println("Nhap so luong khach toi da: ");
         this.soLuongKhachToiDa = sc.nextInt();
 
-        // Kiem tra xem nhan vien co ton tai khong
-//        do {
-//            System.out.println("Nhap ma nguoi tao: ");
-//            ma = sc.next();
-//            for (Employee e : EmployeeList.employeeList) {
-//                if (!e.getEmployeeId().equals(ma)) {
-//                    check = false;
-//                    break;
-//                } else {
-//                    check = true;
-//                    break;
-//                }
-//            }
-//            if (!check) {
-//                System.out.println("Khong co nhan vien trong danh sach!");
-//            } else {
-//                nguoiTao.setEmployeeId(ma);
-//            }
-//        } while (!check);
-
-        // Nhap danh sach khach hang
-        int soLuongKhachHangThamGia;
+//         Kiem tra xem nhan vien co ton tai khong
         do {
-            System.out.println("Nhap so luong khach hang tham gia: ");
-            soLuongKhachHangThamGia = sc.nextInt();
-            if (soLuongKhachHangThamGia > this.soLuongKhachToiDa) {
-                System.out.println("So luong khach hang tham gia khong duoc vuot qua so luong khach hang toi da!");
+            System.out.println("Nhap ma nguoi tao: ");
+            ma = sc.next();
+            for (Employee e : EmployeeList.employeeList) {
+                if (e != null) {
+                    if (!e.getEmployeeId().equals(ma)) {
+                        check = false;
+                        break;
+                    } else {
+                        check = true;
+                        break;
+                    }
+                } else {
+                    System.out.println("Danh sach nhan vien chua co du lieu");
+                }
             }
-        } while (soLuongKhachHangThamGia > this.soLuongKhachToiDa);
-
-        //Nhap danh sach khach hang
-        for (int i = 0; i < soLuongKhachHangThamGia; i++) {
-            String maKhachHang;
-            do {
-                System.out.println("Nhap ma khach hang thu " + (i + 1) + ": ");
-                maKhachHang = sc.next();
-                // Check ma khach hang co trong danh sach khach hang khogn
-                for (Customer cus : CustomerList.customerList) {
-                    if (!cus.getMaKH().equals(maKhachHang)) {
+            if (!check) {
+                System.out.println("Khong co nhan vien trong danh sach!");
+            } else {
+                nguoiTao.setEmployeeId(ma);
+            }
+        } while (!check);
+        // Nhap danh sach khach hang
+        do {
+            System.out.println("Nhap ma khach hang dai dien: ");
+            maKhachDaiDien = sc.next();
+            for (Customer cus : CustomerList.customerList) {
+                if (cus != null) {
+                    if (!cus.getMaKH().equals(maKhachDaiDien)) {
                         checkMaKhachHang = false;
+                        break;
                     } else {
                         checkMaKhachHang = true;
                         break;
                     }
-                }
-                if (!checkMaKhachHang) {
-                    System.out.println("Khong co khach hang trong danh sach!");
                 } else {
-                    // Check ma khach hang da duoc nhap truoc do chua
-                    maKhachHangDuplicated = false;
-                    for (String khachHang : dsKhachHang) {
-                        if (khachHang.equals(maKhachHang)) {
-                            maKhachHangDuplicated = true;
-                            System.out.println("Ma khach hang da ton tai!");
-                            break;
-                        }
-                    }
-                    if (!maKhachHangDuplicated) {
-                        dsKhachHang.add(maKhachHang);
-                    }
+                    System.out.println("Danh sach khach hang chua co du lieu");
                 }
-            } while (maKhachHangDuplicated || dsKhachHang.isEmpty() || !checkMaKhachHang);
+            }
+            if (!checkMaKhachHang) {
+                System.out.println("Khong co khach hang trong danh sach!");
+            } else {
+                khachHang.setMaKH(maKhachDaiDien);
+            }
+        } while (!checkMaKhachHang);
 
+        for (Customer cus : CustomerList.customerList) {
+            if (cus != null) {
+                if (cus.getMaKH().equals(khachHang.getMaKH())) {
+                    cus.getMaTour();
+                }
+            }
         }
+
 //        System.out.println("Nhap ghi chu: ");
-//        this.ghiChu = sc.next();
+//        this.ghiChu = sc.next(); 
     }
 
     public String getMaTour() {
@@ -165,8 +154,8 @@ public class Tour {
         this.tenTour = tenTour;
     }
 
-    public void setDsKhachHang(ArrayList<String> dsKhachHang) {
-        this.dsKhachHang = dsKhachHang;
+    public void setDsKhachHang(Customer khachHang) {
+        this.khachHang = khachHang;
     }
 
     public String getGhiChu() {
@@ -224,8 +213,8 @@ public class Tour {
         return trangThai;
     }
 
-    public ArrayList<String> getDsKhachHang() {
-        return dsKhachHang;
+    public Customer getKhachHang() {
+        return khachHang;
     }
 
     public void setTrangThai(boolean trangThai) {
@@ -234,15 +223,11 @@ public class Tour {
 
     @Override
     public String toString() {
-        String result = "";
-        for (String cus : dsKhachHang) {
-            result += cus + ",";
-        }
         String trangThaiString = !this.trangThai ? "Dang mo ban" : "Da dong";
-        return "{maTour=" + maTour + ", tenTour=" + tenTour + ", ngayDi="
+        return "maTour=" + maTour + ", tenTour=" + tenTour + ", ngayDi="
                 + ngayDi.format(format) + ", ngayVe=" + ngayVe.format(format) + ", giaTien=" + getGiaTien() + "tr"
                 + ", soLuongKhachToiDa=" + soLuongKhachToiDa + ", nguoiTao=" + nguoiTao.getEmployeeId()
-                + ", trangThai=" + trangThaiString + ", dsKhachHang=[" + result + "]" + ", ghiChu=" + ghiChu;
+                + ", trangThai=" + trangThaiString + ", khachHang=" + khachHang.getMaKH() + ", ghiChu=" + ghiChu;
     }
 
     public static void main(String[] args) {

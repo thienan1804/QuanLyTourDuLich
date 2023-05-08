@@ -4,7 +4,17 @@
  */
 package QuanLyNhanVIen;
 
+import static QuanLyNhanVIen.EmployeeManagement.linkFile;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import java.io.FileWriter;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
@@ -30,6 +40,7 @@ public class EmployeeList {
             }
         }
         employeeList.add(employee);
+        saveToFile(linkFile);
         System.out.println("Them thanh cong");
     }
 
@@ -38,6 +49,7 @@ public class EmployeeList {
             if (e.getEmployeeId().equals(idEmployee)) {
                 employeeList.remove(e);
                 System.out.println("Xoa nhan vien " + idEmployee + " thanh cong");
+                saveToFile(linkFile);
                 return;
             }
         }
@@ -51,6 +63,7 @@ public class EmployeeList {
                 e.setPassword(employee.getPassword());
                 e.setRole(employee.getRole());
                 System.out.println("Cap nhat nhan vien " + id + " thanh cong");
+                saveToFile(linkFile);
                 return;
             }
         }
@@ -81,6 +94,82 @@ public class EmployeeList {
             System.out.println("Khong tim thay nhan vien " + name + " trong danh sach");
         }
         return result;
+    }
+
+    // Hàm lưu danh sách vào file
+    public void saveToFile(String filePath) {
+        int dem = 0;
+        try {
+            FileWriter writer = new FileWriter(filePath);
+
+            // Duyệt qua danh sách nhan vien và ghi thông tin của từng nhan vien vào file
+            for (Employee e : employeeList) {
+                String line = e.toString() + "\n";
+                writer.write(line);
+                dem++;
+            }
+
+            writer.close();
+            System.out.println("Lưu danh sách nhan vien vào file thành công.");
+        } catch (IOException e) {
+            System.out.println("Lưu danh sách nhan vien vào file thất bại.");
+            e.printStackTrace();
+        }
+    }
+
+    // Ham lay du lieu tu file
+    public void loadFromFile(String tenFile) {
+        try {
+            File file = new File(tenFile);
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+
+                // Tách thông tin từng thuộc tính của nhan vien từ dòng đọc được
+                String[] arr = line.split(",");
+
+                // Lấy giá trị bên trái dấu bằng làm key, giá trị bên phải làm value
+                Map<String, String> emoloyeeInfo = new HashMap<>();
+                for (String s : arr) {
+                    String[] temp = s.split("=");
+
+                    if (temp.length >= 2) {
+                        emoloyeeInfo.put(temp[0].trim(), temp[1].trim());
+                    }
+                }
+
+                // Tạo đối tượng nhan vien mới từ thông tin đã đọc được
+                String maNV = emoloyeeInfo.get("employeeId");
+                String tenNV = emoloyeeInfo.get("name");
+                String username = emoloyeeInfo.get("username");
+                String password = emoloyeeInfo.get("password");
+                String role = emoloyeeInfo.get("role");
+
+                Employee employee = new Employee(maNV, tenNV, username, password, role);
+
+                // Thêm nhan vien mới vào danh sách nếu chưa tồn tại trong danh sách
+                boolean isExisted = false;
+                for (Employee e : employeeList) {
+                    if (e.getEmployeeId().equals(maNV)) {
+                        isExisted = true;
+                        break;
+                    }
+                }
+                if (!isExisted) {
+                    employeeList.add(employee);
+                }
+            }
+
+            scanner.close();
+            System.out.println("Load danh sách nhan vien từ file thành công.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Load danh sách nhan vien từ file thất bại: File không tồn tại.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Load danh sách nhan vien từ file thất bại: Lỗi định dạng dữ liệu.");
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
