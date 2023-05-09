@@ -160,11 +160,12 @@ public class TourList {
 
         try {
             Scanner scanner = new Scanner(new File(tenFile));
-            if (scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
 
-                String[] tourInfo = new String[13];
+                String[] tourInfo = new String[14];
                 String[] parts = line.split(": ");
+
                 tourInfo[0] = parts[0]; // "BeachTour" hoặc "CityTour"
 
                 Pattern pattern = Pattern.compile("(\\w+)=(\\S+)");
@@ -173,6 +174,7 @@ public class TourList {
                 while (matcher.find()) {
                     String key = matcher.group(1);
                     String value = matcher.group(2);
+
                     switch (key) {
                         case "maTour":
                             tourInfo[1] = value; // "t1"
@@ -193,18 +195,14 @@ public class TourList {
                             tourInfo[6] = value; // "100"
                             break;
                         case "nguoiTao":
-                            tourInfo[7] = value; // "nv1"
+                            tourInfo[7] = value; // "ng tao"
                             break;
                         case "trangThai":
-                            tourInfo[8] = value; // "Dang mo ban"
+                            tourInfo[8] = value; // "trang thai"
                             break;
-                        case "dsKhachHang":
-                            String[] khachHangs = value.substring(1, value.length() - 1).split(",");
-                            String khachHangList = "";
-                            for (String khachHang : khachHangs) {
-                                khachHangList += khachHang.trim() + " ";
-                            }
-                            tourInfo[9] = khachHangList; // "kh3 kh4"
+                        case "khachHang":
+
+                            tourInfo[9] = value; // "kh1"
                             break;
                         case "ghiChu":
                             tourInfo[10] = value; // "ko"
@@ -215,23 +213,52 @@ public class TourList {
                         case "tenKhachSan":
                             tourInfo[12] = value; // "anthien"
                             break;
+                        case "tenThanhPho":
+                            tourInfo[13] = value; // "Bien Hoa"
                     }
                 }
+
                 if (tourInfo[0].equals("BeachTour")) {
-//                    BeachTour beach = new BeachTour();
-//                    beach.maTour = tourInfo[1];
-//                    beach.tenTour = tourInfo[2];
-//                    beach.ngayDi = LocalDate.parse(tourInfo[3], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-//                    beach.ngayVe = LocalDate.parse(tourInfo[4], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-//                    beach.giaTien = Integer.parseInt(tourInfo[5]);
-//                    beach.soLuongKhachToiDa = Integer.parseInt(tourInfo[6]);
-//                    beach.nguoiTao = new Employee(tourInfo[7],"","","","");
-//                    beach.trangThai=Boolean.parseBoolean(tourInfo[8]);
-//                    beach.dsKhachHang = tourInfo[9];
+                    BeachTour beach = new BeachTour();
+                    beach.maTour = tourInfo[1].replaceAll(",", "");
+                    beach.tenTour = tourInfo[2].replaceAll(",", "");
+                    beach.ngayDi = LocalDate.parse(tourInfo[3].replaceAll(",", ""), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    beach.ngayVe = LocalDate.parse(tourInfo[4].replaceAll(",", ""), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    String giaTienStr = tourInfo[5].replaceAll("tr", "").replaceAll(",", ""); // Xóa "tr" và "," khỏi chuỗi giá tiền
+                    beach.giaTien = (double) (Double.parseDouble(giaTienStr)); // Chuyển đổi sang số nguyên
+                    beach.soLuongKhachToiDa = Integer.parseInt(tourInfo[6].replaceAll(",", ""));
+                    beach.nguoiTao = new Employee(tourInfo[7].replaceAll(",", ""), "", "", "", "");
+                    beach.trangThai = Boolean.parseBoolean(tourInfo[8].replaceAll(",", ""));
+                    beach.khachHang = new Customer(tourInfo[9].replaceAll(",", ""), "", "", "");
+                    beach.ghiChu = tourInfo[10].replaceAll(",", "");
+                    beach.tenBien = tourInfo[11].replaceAll(",", "");
+                    beach.tenKhachSan = tourInfo[12].replaceAll(",", "");
+                    tour[countTour++] = beach;
+                } else if (tourInfo[0].equals("CityTour")) {
+                    CityTour city = new CityTour();
+                    city.maTour = tourInfo[1].replaceAll(",", "");
+                    city.tenTour = tourInfo[2].replaceAll(",", "");
+                    city.ngayDi = LocalDate.parse(tourInfo[3].replaceAll(",", ""), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    city.ngayVe = LocalDate.parse(tourInfo[4].replaceAll(",", ""), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    String giaTienStr = tourInfo[5].replaceAll("tr", "").replaceAll(",", ""); // Xóa "tr" và "," khỏi chuỗi giá tiền
+                    city.giaTien = (double) (Double.parseDouble(giaTienStr) * 1000000); // Chuyển đổi sang số nguyên
+                    city.soLuongKhachToiDa = Integer.parseInt(tourInfo[6].replaceAll(",", ""));
+                    city.nguoiTao = new Employee(tourInfo[7].replaceAll(",", ""), "", "", "", "");
+                    city.trangThai = Boolean.parseBoolean(tourInfo[8].replaceAll(",", ""));
+                    city.khachHang = new Customer(tourInfo[9].replaceAll(",", ""), "", "", "");
+                    city.ghiChu = tourInfo[10].replaceAll(",", "");
+                    city.tenThanhPho = tourInfo[13].replaceAll(",", "");
+                    tour[countTour++] = city;
                 }
+
             }
             scanner.close();
+            System.out.println("Load danh sách khách hàng từ file thành công.");
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Load danh sách tour từ file thất bại: File không tồn tại.");
+        } catch (Exception e) {
+            System.out.println("Load danh sách tour từ file thất bại: Lỗi định dạng dữ liệu.");
             e.printStackTrace();
         }
     }

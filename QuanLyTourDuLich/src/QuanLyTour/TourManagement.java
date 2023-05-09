@@ -6,10 +6,6 @@ package QuanLyTour;
 
 import java.util.Scanner;
 
-/**
- *
- * @author thien
- */
 public class TourManagement {
 
     protected static String linkFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyTour\\DanhSachTour.txt";

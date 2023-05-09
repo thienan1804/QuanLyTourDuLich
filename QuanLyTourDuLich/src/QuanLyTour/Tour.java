@@ -87,7 +87,6 @@ public class Tour {
                 if (e != null) {
                     if (!e.getEmployeeId().equals(ma)) {
                         check = false;
-                        break;
                     } else {
                         check = true;
                         break;
@@ -110,7 +109,6 @@ public class Tour {
                 if (cus != null) {
                     if (!cus.getMaKH().equals(maKhachDaiDien)) {
                         checkMaKhachHang = false;
-                        break;
                     } else {
                         checkMaKhachHang = true;
                         break;

@@ -1,1 +1,3 @@
-BeachTour: maTour=t1, tenTour=, ngayDi=02/05/2023, ngayVe=02/05/2023, giaTien=10.0tr, soLuongKhachToiDa=100, nguoiTao=nv1, trangThai=Dang mo ban, khachHang=kh1, ghiChu=, tenBien=nhatrang, tenKhachSan=thienan
+BeachTour: maTour=t1, tenTour=, ngayDi=02/05/2023, ngayVe=02/05/2023, giaTien=10tr, soLuongKhachToiDa=100, nguoiTao=nv1, trangThai=Dang mo ban, khachHang=kh1, ghiChu=, tenBien=nhatrang, tenKhachSan=thienan
+CityTour: maTour=t3, tenTour=, ngayDi=08/05/2023, ngayVe=08/05/2023, giaTien=4.0tr, soLuongKhachToiDa=22, nguoiTao=nv2, trangThai=Dang mo ban, khachHang=kh3, ghiChu=, tenThanhPho=HoChiMinh
+
