@@ -18,6 +18,7 @@ public class QuanLyGiaoDien {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+      
         int choice = 0;
         System.out.println("Ban muon dang nhap duoi quyen(1. Quan tri, 2. Dieu hanh, 3. Ke Toan): ");
         int login = sc.nextInt();

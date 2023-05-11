@@ -19,8 +19,8 @@ public class CityTour extends Tour {
         return "CityTour: " + super.toString() + ", tenThanhPho=" + tenThanhPho;
     }
 
-    public CityTour(String maTour, String tenTour, String ghiChu, LocalDate ngayDi, LocalDate ngayVe, double giaTien, int soLuongKhachToiDa, Employee nguoiTao, Customer khachHang, boolean trangThai, String tenThanhPho) {
-        super(maTour, tenTour, ngayDi, ngayVe, giaTien, soLuongKhachToiDa, nguoiTao, khachHang, trangThai, ghiChu);
+    public CityTour(String maTour, String tenTour, String ghiChu, LocalDate ngayDi, LocalDate ngayVe,double giaTienDuocGiam, double giaTien, int soLuongKhach, Employee nguoiTao, Customer khachHang, boolean trangThai, String tenThanhPho) {
+        super(maTour, tenTour, ngayDi, ngayVe,giaTienDuocGiam, giaTien, soLuongKhach, nguoiTao, khachHang, trangThai, ghiChu);
         this.tenThanhPho = tenThanhPho;
     }
 

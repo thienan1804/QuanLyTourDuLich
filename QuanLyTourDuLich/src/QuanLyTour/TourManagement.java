@@ -51,6 +51,10 @@ public class TourManagement {
                 case 5:
                     tourlist.xuat();
                     break;
+                case 6:
+                    System.out.println("Nhap ten tour: ");
+                    String tenFindTour = sc.next();
+                    tourlist.findTourByName(tenFindTour);
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                     break;

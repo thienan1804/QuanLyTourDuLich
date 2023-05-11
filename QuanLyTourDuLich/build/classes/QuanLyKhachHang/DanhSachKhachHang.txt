@@ -1,4 +1,4 @@
-maKH=kh1, tenKH=an, sdt=123, diaChi=bh, maTour=, loaiKhachHang=Thuong
+maKH=kh1, tenKH=an, sdt=123, diaChi=bh, maTour=t1, loaiKhachHang=Vip
 maKH=kh2, tenKH=be, sdt=123, diaChi=bh, maTour=, loaiKhachHang=Thuong
 maKH=kh3, tenKH=cuong, sdt=456, diaChi=bh, maTour=, loaiKhachHang=Thuong
 maKH=kh4, tenKH=dung, sdt=312, diaChi=bh, maTour=, loaiKhachHang=Thuong

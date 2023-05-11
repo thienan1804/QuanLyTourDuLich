@@ -118,7 +118,7 @@ public class EmployeeList {
     }
 
     // Ham lay du lieu tu file
-    public void loadFromFile(String tenFile) {
+    public static void loadFromFile(String tenFile) {
         try {
             File file = new File(tenFile);
             Scanner scanner = new Scanner(file);

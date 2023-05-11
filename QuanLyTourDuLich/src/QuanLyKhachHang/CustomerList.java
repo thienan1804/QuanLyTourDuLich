@@ -6,6 +6,7 @@ package QuanLyKhachHang;
 
 import static QuanLyKhachHang.CustomerManagement.linkFile;
 import QuanLyTour.Tour;
+import QuanLyTour.TourList;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -75,11 +76,13 @@ public class CustomerList {
 
     public void printCustomer() {
         int dem = 0;
+      
         for (Customer cus : customerList) {
             System.out.println("STT: " + dem);
             System.out.println(cus.toString());
             dem++;
         }
+        saveToFile(linkFile);
     }
 
     // Phương thức tìm kiếm khach hang theo tên
@@ -119,7 +122,7 @@ public class CustomerList {
     }
 
     // Ham lay du lieu tu file
-    public void loadFromFile(String tenFile) {
+    public static void loadFromFile(String tenFile) {
         try {
             File file = new File(tenFile);
             Scanner scanner = new Scanner(file);

@@ -22,24 +22,26 @@ public class Tour {
     protected String maTour, tenTour, ghiChu;
     protected LocalDate ngayDi, ngayVe;
     protected double giaTien;
-    protected int soLuongKhachToiDa;
+    protected int soLuongKhach;
     protected Employee nguoiTao;
     protected Customer khachHang;
     String ma, maKhachDaiDien;
     boolean check, checkMaKhachHang;
+    protected double giaTienDuocGiam;
 
     protected boolean trangThai;
     Scanner sc = new Scanner(System.in);
     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Tour(String maTour, String tenTour, LocalDate ngayDi, LocalDate ngayVe, double giaTien, int soLuongKhachToiDa, Employee nguoiTao, Customer khachHang, boolean trangThai, String ghiChu) {
+    public Tour(String maTour, String tenTour, LocalDate ngayDi, LocalDate ngayVe, double giaTienDuocGiam, double giaTien, int soLuongKhach, Employee nguoiTao, Customer khachHang, boolean trangThai, String ghiChu) {
         this.maTour = maTour;
         this.tenTour = tenTour;
         this.ghiChu = ghiChu;
         this.ngayDi = ngayDi;
         this.ngayVe = ngayVe;
+        this.giaTienDuocGiam = giaTienDuocGiam;
         this.giaTien = giaTien;
-        this.soLuongKhachToiDa = soLuongKhachToiDa;
+        this.soLuongKhach = soLuongKhach;
         this.nguoiTao = nguoiTao;
         this.trangThai = trangThai;
         this.khachHang = khachHang;
@@ -51,35 +53,46 @@ public class Tour {
         ghiChu = "";
         ngayDi = LocalDate.now();
         ngayVe = LocalDate.now();
+        giaTienDuocGiam = 0;
         giaTien = 0;
-        soLuongKhachToiDa = 0;
+        soLuongKhach = 0;
         nguoiTao = new Employee();
         trangThai = false;
         this.khachHang = new Customer();
     }
 
     protected void nhap() {
-//        System.out.println("Nhap ten Tour: ");
-//        this.tenTour = sc.next();
+        System.out.println("Nhap ten Tour: ");
+        this.tenTour = sc.next();
 
         // Ngay di phai truoc ngay ve
-//        do {
-//            System.out.println("Nhap ngay di: ");
-//            String inputNgayDi = sc.next();
-//            this.ngayDi = LocalDate.parse(inputNgayDi, format);
-//            System.out.println("Nhap ngay ve: ");
-//            String inputNgayVe = sc.next();
-//            this.ngayVe = LocalDate.parse(inputNgayVe, format);
-//            if (this.ngayDi.isAfter(ngayVe)) {
-//                System.out.println("Ngay di phai truoc ngay ve");
-//            }
-//        } while (this.ngayDi.isAfter(ngayVe));
+        do {
+            System.out.println("Nhap ngay di: ");
+            String inputNgayDi = sc.next();
+            this.ngayDi = LocalDate.parse(inputNgayDi, format);
+            System.out.println("Nhap ngay ve: ");
+            String inputNgayVe = sc.next();
+            this.ngayVe = LocalDate.parse(inputNgayVe, format);
+            if (this.ngayDi.isAfter(ngayVe)) {
+                System.out.println("Ngay di phai truoc ngay ve");
+            }
+        } while (this.ngayDi.isAfter(ngayVe));
+
         System.out.println("Nhap gia tien(trieu): ");
         this.giaTien = sc.nextDouble();
-        System.out.println("Nhap so luong khach toi da: ");
-        this.soLuongKhachToiDa = sc.nextInt();
+        System.out.println("Nhap so luong khach hang: ");
+        soLuongKhach = sc.nextInt();
 
-//         Kiem tra xem nhan vien co ton tai khong
+        // set khach hang vip khach hang thuong
+        if (this.soLuongKhach > 3 && this.giaTien > 30) {
+            giaTienDuocGiam = giaTien - (giaTien * 0.1);
+            ghiChu = "khach hang vip";
+        } else {
+            giaTienDuocGiam = giaTien;
+            ghiChu = "khach hang thuong";
+        }
+
+        //Kiem tra xem nhan vien co ton tai khong
         do {
             System.out.println("Nhap ma nguoi tao: ");
             ma = sc.next();
@@ -127,13 +140,10 @@ public class Tour {
         for (Customer cus : CustomerList.customerList) {
             if (cus != null) {
                 if (cus.getMaKH().equals(khachHang.getMaKH())) {
-                    cus.getMaTour();
+                    cus.setMaTour(maTour);
                 }
             }
         }
-
-//        System.out.println("Nhap ghi chu: ");
-//        this.ghiChu = sc.next(); 
     }
 
     public String getMaTour() {
@@ -180,10 +190,15 @@ public class Tour {
         this.ngayVe = ngayVe;
     }
 
+    public double getGiaTienDuocGiam() {
+        return giaTienDuocGiam;
+    }
+
+    public void setGiaTienDuocGiam(double giaTienDuocGiam) {
+        this.giaTienDuocGiam = giaTienDuocGiam;
+    }
+
     public double getGiaTien() {
-        if (this.soLuongKhachToiDa >= 3 && this.giaTien > 30) {
-            return giaTien * 0.1;
-        }
         return giaTien;
     }
 
@@ -191,12 +206,12 @@ public class Tour {
         this.giaTien = giaTien;
     }
 
-    public int getSoLuongKhachToiDa() {
-        return soLuongKhachToiDa;
+    public int getSoLuongKhach() {
+        return soLuongKhach;
     }
 
-    public void setSoLuongKhachToiDa(int soLuongKhachToiDa) {
-        this.soLuongKhachToiDa = soLuongKhachToiDa;
+    public void setSoLuongKhachToiDa(int soLuongKhach) {
+        this.soLuongKhach = soLuongKhach;
     }
 
     public Employee getNguoiTao() {
@@ -222,9 +237,11 @@ public class Tour {
     @Override
     public String toString() {
         String trangThaiString = !this.trangThai ? "Dang mo ban" : "Da dong";
+
         return "maTour=" + maTour + ", tenTour=" + tenTour + ", ngayDi="
-                + ngayDi.format(format) + ", ngayVe=" + ngayVe.format(format) + ", giaTien=" + getGiaTien() + "tr"
-                + ", soLuongKhachToiDa=" + soLuongKhachToiDa + ", nguoiTao=" + nguoiTao.getEmployeeId()
+                + ngayDi.format(format) + ", ngayVe=" + ngayVe.format(format)
+                + ", giaTien=" + giaTien + ", thanhTien=" + giaTienDuocGiam + "tr"
+                + ", soLuongKhach=" + soLuongKhach + ", nguoiTao=" + nguoiTao.getEmployeeId()
                 + ", trangThai=" + trangThaiString + ", khachHang=" + khachHang.getMaKH() + ", ghiChu=" + ghiChu;
     }
 

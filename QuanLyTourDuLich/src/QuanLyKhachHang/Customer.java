@@ -6,7 +6,6 @@ package QuanLyKhachHang;
 
 import QuanLyTour.Tour;
 import QuanLyTour.TourList;
-import java.util.ArrayList;
 
 /**
  *
@@ -71,7 +70,7 @@ public class Customer {
     public String getMaTour() {
         for (Tour tour : TourList.tour) {
             if (tour != null) {
-                if (tour.getKhachHang().equals(maKH)) {
+                if (tour.getKhachHang().getMaKH().equals(maKH)) {
                     return maTour = tour.getMaTour();
                 }
             }
@@ -86,8 +85,8 @@ public class Customer {
     public int getLoaiKhachHang() {
         for (Tour tour : TourList.tour) {
             if (tour != null) {
-                if (tour.getKhachHang().equals(maKH)) {
-                    if (tour.getGiaTien() > 30) {
+                if (tour.getKhachHang().getMaKH().equals(maKH)) {
+                    if (tour.getGiaTien() > 30 && tour.getSoLuongKhach() > 3) {
                         return loaiKhachHang = 1;
                     }
                 }
@@ -102,9 +101,9 @@ public class Customer {
 
     @Override
     public String toString() {
-        String loaiKHString = loaiKhachHang == 1 ? "Vip" : "Thuong";
+        String loaiKHString = getLoaiKhachHang() == 1 ? "Vip" : "Thuong";
         return "maKH=" + maKH + ", tenKH=" + tenKH + ", sdt=" + sdt
-                + ", diaChi=" + diaChi + ", maTour=" + maTour + ", loaiKhachHang=" + loaiKHString;
+                + ", diaChi=" + diaChi + ", maTour=" + getMaTour() + ", loaiKhachHang=" + loaiKHString;
     }
 
     public static void main(String[] args) {

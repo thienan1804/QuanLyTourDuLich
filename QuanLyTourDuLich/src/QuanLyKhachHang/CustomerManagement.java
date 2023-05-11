@@ -48,6 +48,18 @@ public class CustomerManagement {
                     Customer cusAdd = new Customer(maAddKH, tenAddKH, sdtAddKH, diaChiAddKH);
                     customerList.addCustomer(cusAdd);
                     break;
+                case 2:
+                    System.out.println("Nhap ma khach hang muon sua: ");
+                    String maUpdateKH = sc.next();
+                    System.out.println("Nhap ten khach hang: ");
+                    String tenUpdateKH = sc.next();
+                    System.out.println("Nhap sdt khach hang: ");
+                    String sdtUpdateKH = sc.next();
+                    System.out.println("Nhap dia chi khach hang: ");
+                    String diaChiUpdateKH = sc.next();
+                    Customer cusUpdate = new Customer(maUpdateKH, tenUpdateKH, sdtUpdateKH, diaChiUpdateKH);
+                    customerList.updateCustomer(maUpdateKH, cusUpdate);
+                    break;
                 case 3:
                     System.out.println("Nhap ma khach hang can xoa: ");
                     String maDeleteKH = sc.next();
@@ -56,6 +68,10 @@ public class CustomerManagement {
                 case 4:
                     customerList.printCustomer();
                     break;
+                case 5:
+                    System.out.println("Nhap ten khach hang: ");
+                    String tenFindKH = sc.next();
+                    customerList.findCustomersByName(tenFindKH);
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                     break;
