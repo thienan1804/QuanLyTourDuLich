@@ -26,7 +26,6 @@ public class TourList {
     public static Tour[] tour = new Tour[100];
     private int countTour;
     Scanner sc = new Scanner(System.in);
-    Employee nguoiTao;
 
     public void TourList() {
         countTour = 0;
