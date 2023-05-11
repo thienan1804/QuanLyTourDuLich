@@ -240,7 +240,7 @@ public class Tour {
 
         return "maTour=" + maTour + ", tenTour=" + tenTour + ", ngayDi="
                 + ngayDi.format(format) + ", ngayVe=" + ngayVe.format(format)
-                + ", giaTien=" + giaTien + ", thanhTien=" + giaTienDuocGiam + "tr"
+                + ", giaTien=" + giaTien + "tr" + ", thanhTien=" + giaTienDuocGiam + "tr"
                 + ", soLuongKhach=" + soLuongKhach + ", nguoiTao=" + nguoiTao.getEmployeeId()
                 + ", trangThai=" + trangThaiString + ", khachHang=" + khachHang.getMaKH() + ", ghiChu=" + ghiChu;
     }

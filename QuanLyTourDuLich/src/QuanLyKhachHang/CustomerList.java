@@ -6,7 +6,6 @@ package QuanLyKhachHang;
 
 import static QuanLyKhachHang.CustomerManagement.linkFile;
 import QuanLyTour.Tour;
-import QuanLyTour.TourList;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -88,15 +87,15 @@ public class CustomerList {
     // Phương thức tìm kiếm khach hang theo tên
     public ArrayList<Customer> findCustomersByName(String name) {
         ArrayList<Customer> result = new ArrayList<Customer>();
-        boolean check = true;
+        int dem=0;
         for (Customer cus : customerList) {
             if (cus.getTenKH().contains(name)) {
                 result.add(cus);
             } else {
-                check = false;
+                dem++;
             }
         }
-        if (check == false) {
+        if (dem == customerList.size()) {
             System.out.println("Khong tim thay khach hang " + name + " trong danh sach");
         }
         return result;

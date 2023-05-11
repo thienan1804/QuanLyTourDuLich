@@ -60,6 +60,7 @@ public class TourList {
                     }
                 } while (isExist);
                 beach.nhap();
+                beach.giaTienDuocGiam = beach.giaTienDuocGiam - beach.giaTien * 0.05;
                 tour[countTour] = beach;
                 saveToFile(linkFile);
             } else {
@@ -74,6 +75,7 @@ public class TourList {
                     }
                 } while (isExist);
                 city.nhap();
+                city.giaTienDuocGiam = city.giaTienDuocGiam - city.giaTien * 0.03;
                 tour[countTour] = city;
                 saveToFile(linkFile);
             }
@@ -94,21 +96,20 @@ public class TourList {
     }
 
     public void deleteTour(String maTour) {
-        boolean found = false;
         for (int i = 0; i < countTour; i++) {
-            if (found) {
-                tour[i - 1] = tour[i];
-            } else if (tour[i].getMaTour().equals(maTour)) {
-                found = true;
+            if (tour[i].getMaTour().equals(maTour)) {
+                // Duyệt danh sách tour từ vị trí i đến hết danh sách
+                for (int j = i; j < countTour - 1; j++) {
+                    tour[j] = tour[j + 1]; // Dời các tour phía sau về trước
+                }
+                tour[countTour - 1] = null; // Xóa tour cuối cùng
+                countTour--; // Giảm số lượng tour đi 1
+                saveToFile(linkFile); // Lưu lại danh sách tour vào file
+                System.out.println("Xóa tour thành công.");
+                return;
             }
         }
-        if (found) {
-            countTour--;
-            System.out.println("Xoa thanh cong!");
-            saveToFile(linkFile);
-        } else {
-            System.out.println("Xoa that bai!");
-        }
+        System.out.println("Không tìm thấy tour có mã " + maTour);
     }
 
     public void xuat() {
@@ -118,13 +119,13 @@ public class TourList {
         }
     }
 
-    public Tour findTourByName(String tenTour) {
+    public void findTourByName(String tenTour) {
+
         for (int i = 0; i < countTour; i++) {
             if (tour[i].getTenTour().equals(tenTour)) {
-                return tour[i];
+                System.out.println(tour[i]);
             }
         }
-        return null;
     }
 
     public void saveToFile(String fileName) {

@@ -4,6 +4,7 @@
  */
 package QuanLyKhachHang;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -70,8 +71,16 @@ public class CustomerManagement {
                     break;
                 case 5:
                     System.out.println("Nhap ten khach hang: ");
-                    String tenFindKH = sc.next();
-                    customerList.findCustomersByName(tenFindKH);
+                    String nameSearch = sc.next();
+                    int dem = 0;
+                    ArrayList<Customer> result = customerList.findCustomersByName(nameSearch);
+                    for (Customer cus : result) {
+                        System.out.println("STT: " + dem);
+                        System.out.println(cus.toString());
+                        dem++;
+                    } 
+                    customerList.findCustomersByName(nameSearch);
+                    break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                     break;

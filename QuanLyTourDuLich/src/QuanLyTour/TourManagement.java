@@ -55,6 +55,7 @@ public class TourManagement {
                     System.out.println("Nhap ten tour: ");
                     String tenFindTour = sc.next();
                     tourlist.findTourByName(tenFindTour);
+                    break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                     break;

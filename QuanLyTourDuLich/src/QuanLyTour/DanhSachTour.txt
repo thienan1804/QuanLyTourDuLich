@@ -1,1 +1,0 @@
-BeachTour: maTour=t1, tenTour=nhatrang, ngayDi=12/03/2022, ngayVe=12/03/2023, giaTien=100.0, thanhTien=90.0tr, soLuongKhach=4, nguoiTao=nv1, trangThai=Dang mo ban, khachHang=kh1, ghiChu=khach hang vip, tenBien=nhatrang, tenKhachSan=hotel
