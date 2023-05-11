@@ -16,10 +16,10 @@ public class Employee {
     protected String name;
     protected String username;
     protected String password;
-    protected int role;
+    protected String role;
     Scanner sc = new Scanner(System.in);
 
-    public Employee(String employeeId, String name, String username, String password, int role) {
+    public Employee(String employeeId, String name, String username, String password, String role) {
         this.employeeId = employeeId;
         this.name = name;
         this.username = username;
@@ -32,7 +32,7 @@ public class Employee {
         name = "";
         username = "";
         password = "";
-        role = 0;
+        role = "";
     }
 
     public String getEmployeeId() {
@@ -67,30 +67,18 @@ public class Employee {
         this.password = password;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
     @Override
     public String toString() {
-        String returnRole = "";
-        switch (this.role) {
-            case 1:
-                returnRole = "Quan Tri";
-                break;
-            case 2:
-                returnRole = "Dieu Hanh";
-                break;
-            default:
-                returnRole = "Ke Toan";
-                break;
-        }
-        return "Employee: {" + "employeeId=" + employeeId + ", name=" + name + ", username=" + username
-                + ", password=" + password + ", role=" + returnRole + '}';
+        return "employeeId=" + employeeId + ", name=" + name + ", username=" + username
+                + ", password=" + password + ", role=" + role ;
     }
 
     public static void main(String[] args) {
