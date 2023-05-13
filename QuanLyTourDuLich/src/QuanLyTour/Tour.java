@@ -10,7 +10,6 @@ import QuanLyNhanVIen.Employee;
 import QuanLyNhanVIen.EmployeeList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -43,21 +42,20 @@ public class Tour {
         this.giaTien = giaTien;
         this.soLuongKhach = soLuongKhach;
         this.nguoiTao = nguoiTao;
-        this.trangThai = trangThai;
         this.khachHang = khachHang;
     }
 
     public Tour() {
-        maTour = "";
-        tenTour = "";
-        ghiChu = "";
-        ngayDi = LocalDate.now();
-        ngayVe = LocalDate.now();
-        giaTienDuocGiam = 0;
-        giaTien = 0;
-        soLuongKhach = 0;
-        nguoiTao = new Employee();
-        trangThai = false;
+        this.maTour = "";
+        this.tenTour = "";
+        this.ghiChu = "";
+        this.ngayDi = LocalDate.now();
+        this.ngayVe = LocalDate.now();
+        this.giaTienDuocGiam = 0;
+        this.giaTien = 0;
+        this.soLuongKhach = 0;
+        this.nguoiTao = new Employee();
+        this.trangThai = false;
         this.khachHang = new Customer();
     }
 
@@ -222,7 +220,7 @@ public class Tour {
         this.nguoiTao = nguoiTao;
     }
 
-    public boolean isTrangThai() {
+    public boolean getTrangThai() {
         return trangThai;
     }
 
@@ -236,7 +234,8 @@ public class Tour {
 
     @Override
     public String toString() {
-        String trangThaiString = !this.trangThai ? "Dang mo ban" : "Da dong";
+        System.out.println(trangThai);
+        String trangThaiString = !trangThai ? "Dang mo ban" : "Da dong";
 
         return "maTour=" + maTour + ", tenTour=" + tenTour + ", ngayDi="
                 + ngayDi.format(format) + ", ngayVe=" + ngayVe.format(format)

@@ -5,9 +5,11 @@
  */
 package GiaoDien;
 
+import QuanLyKhachHang.CustomerList;
 import QuanLyNhanVIen.EmployeeManagement;
 import QuanLyTour.TourManagement;
 import QuanLyKhachHang.CustomerManagement;
+import QuanLyNhanVIen.EmployeeList;
 import java.util.Scanner;
 
 /**
@@ -20,9 +22,13 @@ public class QuanLyGiaoDien {
         Scanner sc = new Scanner(System.in);
       
         int choice = 0;
+        String employeeFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyNhanVIen\\DanhSachNhanVien.txt";
+        String customerFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyKhachHang\\DanhSachKhachHang.txt";
         System.out.println("Ban muon dang nhap duoi quyen(1. Quan tri, 2. Dieu hanh, 3. Ke Toan): ");
         int login = sc.nextInt();
+    
         if (login == 1) {
+           
             do {
                 System.out.println("\n\nChọn chức năng:");
                 System.out.println("0. Thoát chương trình.");

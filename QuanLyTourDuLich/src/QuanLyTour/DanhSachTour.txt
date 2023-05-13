@@ -1,0 +1,2 @@
+BeachTour: maTour=t1, tenTour=nhatrang, ngayDi=12/03/2022, ngayVe=12/04/2022, giaTien=85.0tr, thanhTien=85.0tr, soLuongKhach=10, nguoiTao=nv1, trangThai=Da dong, khachHang=kh1, ghiChu=khach, tenBien=nhatrang, tenKhachSan=hotel
+CityTour: maTour=t2, tenTour=bienhoa, ngayDi=12/04/2022, ngayVe=12/04/2023, giaTien=0.0tr, thanhTien=0.0tr, soLuongKhach=2, nguoiTao=nv2, trangThai=Dang mo ban, khachHang=kh2, ghiChu=khach, tenThanhPho=bienhoa

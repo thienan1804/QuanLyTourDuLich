@@ -25,6 +25,7 @@ public class EmployeeManagement {
             System.out.println("3. Xóa nhân viên");
             System.out.println("4. Xuất danh sách nhân viên");
             System.out.println("5. Tìm kiếm nhân viên theo tên");
+            System.out.println("6. Xác nhận tour");
             System.out.println("Moi nhap lua chon cua ban: ");
 
             choice = sc.nextInt();
@@ -76,7 +77,13 @@ public class EmployeeManagement {
                 case 3:
                     System.out.print("Nhap ma nhan vien: ");
                     String employeeIdDelete = sc.next();
-                    employeeList.deleteEmployee(employeeIdDelete);
+                    System.out.println("Ban co chac muon xac nhan tour khong?(1.Co, 2.Khong): ");
+                    int checkDeleteEmployee = sc.nextInt();
+                    if (checkDeleteEmployee == 1) {
+                        employeeList.deleteEmployee(employeeIdDelete);
+                    } else {
+                        break;
+                    }
                     break;
                 case 4:
                     employeeList.showEmployeeList();
@@ -90,6 +97,17 @@ public class EmployeeManagement {
                         System.out.println("STT: " + dem);
                         System.out.println(employee.toString());
                         dem++;
+                    }
+                    break;
+                case 6:
+                    System.out.println("Nhap ma nhan vien muon xac nhan tour: ");
+                    String employeeIdToConfirm = sc.next();
+                    System.out.println("Ban co chac muon xac nhan tour khong?(1.Co, 2.Khong): ");
+                    int checkConfirmTour = sc.nextInt();
+                    if (checkConfirmTour == 1) {
+                        employeeList.confirmTour(employeeIdToConfirm);
+                    } else {
+                        break;
                     }
                     break;
                 default:

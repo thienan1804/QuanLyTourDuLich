@@ -5,6 +5,8 @@
 package QuanLyNhanVIen;
 
 import static QuanLyNhanVIen.EmployeeManagement.linkFile;
+import QuanLyTour.Tour;
+import QuanLyTour.TourList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -56,6 +58,7 @@ public class EmployeeList {
         System.out.println("Xoa that bai");
     }
 
+    //update tour
     public void updateEmployee(String id, Employee employee) {
         for (Employee e : employeeList) {
             if (e.getEmployeeId().equals(id)) {
@@ -70,6 +73,27 @@ public class EmployeeList {
         System.out.println("Cap nhat that bai");
     }
 
+    // confirm tour
+    public void confirmTour(String employeeId) {
+        for (Tour tour : TourList.tour) {
+            if (tour != null) {
+                if (tour.getNguoiTao().employeeId.equals(employeeId)) {
+                    if (!tour.getTrangThai()) { // nếu trạng thái tour chưa được xác nhận
+                        tour.setTrangThai(true); // cập nhật trạng thái tour
+                        System.out.println("Xác nhận tour thành công!");
+                        TourList.saveToFile("D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyTour\\DanhSachTour.txt"); // lưu lại danh sách tour
+                        return; // thoát khỏi vòng lặp nếu tìm thấy tour cần xác nhận
+                    } else {
+                        System.out.println("Tour này đã được xác nhận trước đó!");
+                        return; // thoát khỏi vòng lặp nếu tour đã được xác nhận trước đó
+                    }
+                }
+            }
+        }
+        System.out.println("Không tìm thấy tour cần xác nhận hoặc nhân viên không có trong danh sách.");
+    }
+
+    //show tour
     public void showEmployeeList() {
         int dem = 0;
         for (Employee employee : employeeList) {
@@ -82,7 +106,7 @@ public class EmployeeList {
     // Phương thức tìm kiếm nhân viên theo tên
     public ArrayList<Employee> searchEmployeeByName(String name) {
         ArrayList<Employee> result = new ArrayList<Employee>();
-       int dem=0;
+        int dem = 0;
         for (Employee emp : employeeList) {
             if (emp.getName().contains(name)) {
                 result.add(emp);

@@ -128,7 +128,7 @@ public class TourList {
         }
     }
 
-    public void saveToFile(String fileName) {
+    public static void saveToFile(String fileName) {
         try {
             FileWriter writer = new FileWriter(fileName);
 
