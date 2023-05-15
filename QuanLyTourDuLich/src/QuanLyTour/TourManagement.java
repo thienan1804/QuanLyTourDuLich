@@ -4,6 +4,8 @@
  */
 package QuanLyTour;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class TourManagement {
@@ -14,6 +16,8 @@ public class TourManagement {
         TourList tourlist = new TourList();
         tourlist.loadFromFile(linkFile);
         Scanner sc = new Scanner(System.in);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         int choice;
         do {
             System.out.println("\n\nChọn chức năng:");
@@ -24,6 +28,7 @@ public class TourManagement {
             System.out.println("4. Xóa tour");
             System.out.println("5. Xuất danh sách tour");
             System.out.println("6. Tìm kiếm tour theo tên");
+            System.out.println("7. Tìm kiếm tour theo ngày đi/ngày về");
             System.out.println("Moi nhap lua chon cua ban: ");
             choice = sc.nextInt();
 
@@ -56,6 +61,24 @@ public class TourManagement {
                     String tenFindTour = sc.next();
                     tourlist.findTourByName(tenFindTour);
                     break;
+                case 7:
+                    // Ngay di phai truoc ngay ve
+                    LocalDate ngayDi,
+                     ngayVe;
+                    String inputNgayDi,
+                     inputNgayVe;
+                    do {
+                        System.out.println("Nhap ngay di: ");
+                        inputNgayDi = sc.next();
+                        ngayDi = LocalDate.parse(inputNgayDi, format);
+                        System.out.println("Nhap ngay ve: ");
+                        inputNgayVe = sc.next();
+                        ngayVe = LocalDate.parse(inputNgayVe, format);
+                        if (ngayDi.isAfter(ngayVe)) {
+                            System.out.println("Ngay di phai truoc ngay ve");
+                        }
+                    } while (ngayDi.isAfter(ngayVe));
+
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                     break;

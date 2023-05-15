@@ -5,6 +5,7 @@
  */
 package GiaoDien;
 
+import QuanLyHoaDon.BillManagerment;
 import QuanLyKhachHang.CustomerList;
 import QuanLyNhanVIen.EmployeeManagement;
 import QuanLyTour.TourManagement;
@@ -20,21 +21,20 @@ public class QuanLyGiaoDien {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-      
+
         int choice = 0;
-        String employeeFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyNhanVIen\\DanhSachNhanVien.txt";
-        String customerFile = "D:\\GitHub\\QuanLyTourDuLich\\QuanLyTourDuLich\\src\\QuanLyKhachHang\\DanhSachKhachHang.txt";
+
         System.out.println("Ban muon dang nhap duoi quyen(1. Quan tri, 2. Dieu hanh, 3. Ke Toan): ");
         int login = sc.nextInt();
-    
+
         if (login == 1) {
-           
             do {
                 System.out.println("\n\nChọn chức năng:");
                 System.out.println("0. Thoát chương trình.");
                 System.out.println("1. Dang nhap vao quan ly nhan vien");
                 System.out.println("2. Dang nhap vao quan ly tour");
                 System.out.println("3. Dang nhap vao quan ly khach hang");
+                System.out.println("4. Dang nhap vao quan ly hoa don");
                 System.out.println("Moi nhap lua chon cua ban: ");
 
                 choice = sc.nextInt();
@@ -51,6 +51,61 @@ public class QuanLyGiaoDien {
                         break;
                     case 3:
                         CustomerManagement.main(args);
+                        break;
+                    case 4:
+                        BillManagerment.main(args);
+                        break;
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
+                        break;
+                }
+            } while (choice != 0);
+        }
+        else if (login == 2) {
+            do {
+                System.out.println("\n\nChọn chức năng:");
+                System.out.println("0. Thoát chương trình.");
+                System.out.println("1. Dang nhap vao quan ly tour");
+                System.out.println("2. Dang nhap vao quan ly khach hang");
+                System.out.println("Moi nhap lua chon cua ban: ");
+
+                choice = sc.nextInt();
+                sc.nextLine(); // Đọc bỏ dòng trống sau khi đọc số
+                switch (choice) {
+                    case 0:
+                        System.out.println("Cam on ban da su dung chuong trinh!");
+                        break;
+                    case 1:
+                        TourManagement.main(args);
+                        break;
+                    case 2:
+                        CustomerManagement.main(args);
+                        break;
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
+                        break;
+                }
+            } while (choice != 0);
+        }
+        else if(login==3){
+             do {
+                System.out.println("\n\nChọn chức năng:");
+                System.out.println("0. Thoát chương trình.");
+                System.out.println("1. Dang nhap vao quan ly tour");
+                System.out.println("2. Dang nhap vao quan ly hoa don");
+                System.out.println("Moi nhap lua chon cua ban: ");
+
+                choice = sc.nextInt();
+                sc.nextLine(); // Đọc bỏ dòng trống sau khi đọc số
+                switch (choice) {
+                    case 0:
+                        System.out.println("Cam on ban da su dung chuong trinh!");
+                        break;
+                    case 1:
+                        TourManagement.main(args);
+                        break;
+                    case 2:
+                        BillManagerment.main(args);
                         break;
                     default:
                         System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");

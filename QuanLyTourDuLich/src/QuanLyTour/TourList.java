@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -126,6 +127,16 @@ public class TourList {
                 System.out.println(tour[i]);
             }
         }
+    }
+
+    public ArrayList<Tour> searchToursByDates(ArrayList<Tour> tourList, LocalDate startDate, LocalDate endDate) {
+        ArrayList<Tour> result = new ArrayList<>();
+        for (Tour tour : tourList) {
+            if (tour.getNgayDi().isEqual(startDate) && tour.getNgayVe().isEqual(endDate)) {
+                result.add(tour);
+            }
+        }
+        return result;
     }
 
     public static void saveToFile(String fileName) {
